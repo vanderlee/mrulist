@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>jQuery MRUList</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+        <style>
+			body {
+				font-family:	'Segoe UI', Verdana, Arial, Helvetica, sans-serif;
+				font-size:		62.5%;
+			}
+
+			#log {
+				background: #eee;
+				border: solid thin #ccc;
+				min-height: 5em;
+				padding: 1em;
+				overflow: auto;
+			}
+        </style>
+
+		<!-- stuff -->
+		<script src="jquery.mrulist.js"></script>
+        <script>
+           	$(function() {
+				var mru = new MRUList('test', 5, function(list) {
+					$('#log').append('<div>List: ' + list.join(', ') + '</div>');
+				});
+
+				$('#clear').click(function() {
+					mru.clear();
+				});
+
+				$('#addRandom').click(function() {
+					mru.add(Math.round(Math.random() * 1000));
+				});
+
+				$('#addValue').click(function() {
+					mru.add($('#value').val());
+				});
+
+				$('#addItems').click(function() {
+					var array = [];
+					while (array.length < $('#items').val()) {
+						array.push(Math.round(Math.random() * 1000));
+					}
+					mru.add(array);
+				});
+            });
+        </script>
+	</head>
+	<body>
+		<h1>jQuery MRUList</h1>
+		<div>
+			<button id="clear">Clear the list</button>
+		</div>
+		<div>
+			<button id="addRandom">Add random number</button>
+		</div>
+		<div>
+			<button id="addValue">Add value</button>
+			Value: <input text="Some value" id="value"/>
+		</div>
+		<div>
+			<button id="addItems">Add array with N items</button>
+			Items: <input type="number" id="items" value="3"/>
+		</div>
+		<hr/>
+		<h2>Log</h2>
+		<div id="log"></div>
+	</body>
+</html>
